@@ -28,7 +28,7 @@ export default function Filter() {
                 {
                     regions.map((region: string) => {
                         return (
-                            <Link href={'/'} key={region} className='leading-5'>{region}</Link>
+                            <Link href={`/?filter=${region}`} key={region} className='leading-5'>{region}</Link>
                         )
                     })
                 }

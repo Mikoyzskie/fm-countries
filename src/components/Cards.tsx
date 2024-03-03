@@ -2,7 +2,7 @@ import CountryCard from "@/components/CountryCard";
 import { getCountry } from '@/lib/data'
 import { getRegion } from '@/lib/data'
 
-interface CountryCard {
+interface ICountryCard {
     svg: string;
     alt: string;
     name: string;
@@ -11,7 +11,7 @@ interface CountryCard {
     capital: string[];
 }
 
-const Cards = async ({ region }: { region?: string }) => {
+const Cards = async ({ region, country }: { region?: string | string[] | undefined, country?: string | string[] | undefined }) => {
 
     const landing = ["germany", "usa", "brazil", "iceland", "philippines", "Åland", "albania", "algeria"]
 
@@ -36,12 +36,27 @@ const Cards = async ({ region }: { region?: string }) => {
             console.error('Error fetching countries data:', error);
         }
     };
+
+    let test: string | string[] | undefined = "oceania"
+    if (region) {
+        test = region
+    }
+
+    let cunts: string | string[] | undefined = "Philippines"
+    if (country) {
+        cunts = country
+    }
     const countries = await fetchCountriesData()
-    const regional = await getRegion(region)
+    const regional = await getRegion(test)
+
+    // console.log(regional);
+    const count = await getCountry(cunts)
+
 
     return (
         <div className="maxWidth grid grid-cols-4 gap-[75px]">
-            {
+            {!region && !count &&
+
                 countries?.map((country, index) => (
                     <CountryCard
                         key={index}
@@ -49,6 +64,38 @@ const Cards = async ({ region }: { region?: string }) => {
                         alt={country.alt}
                         name={country.name}
                         population={country.population}
+                        region={country.region}
+                        capital={country.capital}
+                    />
+                ))
+            }
+            {
+                regional.status === 404 && count.status === 404 &&
+                <p>not found</p>
+            }
+            {
+                regional.status !== 404 && region &&
+                regional.map((country: any, index: number) => (
+                    <CountryCard
+                        key={index}
+                        svg={country.flags.svg}
+                        alt={country.flags.alt}
+                        name={country.name.common}
+                        population={country.population.toLocaleString()}
+                        region={country.region}
+                        capital={country.capital}
+                    />
+                ))
+            }
+            {
+                count.status !== 404 && cunts &&
+                count.map((country: any, index: number) => (
+                    <CountryCard
+                        key={index}
+                        svg={country.flags.svg}
+                        alt={country.flags.alt}
+                        name={country.name.common}
+                        population={country.population.toLocaleString()}
                         region={country.region}
                         capital={country.capital}
                     />

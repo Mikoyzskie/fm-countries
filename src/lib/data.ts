@@ -1,4 +1,4 @@
-export async function getCountry(country: string) {
+export async function getCountry(country: string | string[] | undefined) {
   try {
     const response = await fetch(
       `https://restcountries.com/v3.1/name/${country}`,
@@ -13,16 +13,10 @@ export async function getCountry(country: string) {
   }
 }
 
-export async function getRegion(region?: string) {
-  let reg = "oceania";
-
-  if (region) {
-    reg = region;
-  }
-
+export async function getRegion(region: string | string[] | undefined) {
   try {
     const response = await fetch(
-      `https://restcountries.com/v3.1/region/${reg}`,
+      `https://restcountries.com/v3.1/region/${region}`,
       {
         method: "GET",
       }
