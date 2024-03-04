@@ -1,7 +1,5 @@
 import CountryCard from "@/components/CountryCard";
-import { getCountry } from '@/lib/data'
-import { getRegion } from '@/lib/data'
-
+import { getCountry, getRegion } from '@/lib/data'
 interface ICountryCard {
     svg: string;
     alt: string;
@@ -55,7 +53,7 @@ const Cards = async ({ region, country }: { region?: string | string[] | undefin
 
     return (
         <div className="maxWidth grid grid-cols-4 gap-[75px]">
-            {!region && !count &&
+            {!region && !country &&
 
                 countries?.map((country, index) => (
                     <CountryCard
@@ -88,7 +86,7 @@ const Cards = async ({ region, country }: { region?: string | string[] | undefin
                 ))
             }
             {
-                count.status !== 404 && cunts &&
+                count.status !== 404 && country &&
                 count.map((country: any, index: number) => (
                     <CountryCard
                         key={index}

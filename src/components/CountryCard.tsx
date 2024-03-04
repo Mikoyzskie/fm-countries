@@ -15,7 +15,7 @@ interface CountryCard {
 export default function CountryCard({ svg, alt, name, population, region, capital }: CountryCard) {
 
     return (
-        <Link href={"/"} className='rounded-[5px] shadow-md overflow-hidden pb-'>
+        <Link href={"/test space"} className='rounded-[5px] shadow-md overflow-hidden pb-'>
             <Image
                 src={svg}
                 alt={alt}
