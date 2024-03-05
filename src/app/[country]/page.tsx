@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { getCountry, getFromCode } from '@/lib/data'
 import Link from 'next/link'
+import Borders from '@/components/Borders'
 
 interface INative {
     official: string,
@@ -11,6 +12,26 @@ interface ICurrency {
     name: string,
     symbol: string
 }
+
+// interface IInfo{
+//     population:string,
+//     region:string,
+//     subregion:string,
+//     currencies:{
+//         name:string
+//     },
+//     tld:string,
+//     name:{
+//         nativeName:string
+//     }
+//     flags:{
+//         svg:string,
+//         alt:string,
+//     }
+//     languages: string[],
+//     capital:string,
+//     borders:string[]
+// }
 
 
 export default async function Country() {
@@ -43,8 +64,8 @@ export default async function Country() {
             </button>
             <div>
                 {
-                    data.map(async (info: any, index: number) => {
-                        const keys: INative[] = Object.values(info.name.nativeName)
+                    data.map((info: any, index: number) => {
+                        const keys = Object.values(info.name.nativeName)
                         const last = keys.length - 1
                         const native = keys[last]
 
@@ -54,14 +75,14 @@ export default async function Country() {
                         })
 
                         const language = Object.values(info.languages)
-                        const border = await Promise.all(info.borders.map(async (border: string, index: number) => {
+                        // const border = await Promise.all(info.borders.map(async (border: string, index: number) => {
 
-                            const bord = await getFromCode(border)
-                            const [test] = bord
-                            return test
-                        }))
+                        //     const bord = await getFromCode(border)
+                        //     const [test] = bord
+                        //     return test
+                        // }))
 
-                        console.log(border);
+                        // console.log(border);
 
 
                         return (
@@ -75,9 +96,10 @@ export default async function Country() {
                                 />
                                 <div>
                                     <h1 className='text-[32px] font-extrabold mb-[23px]'>{info.name.common}</h1>
-                                    <div className='flex justify-between gap-[141px]'>
+                                    <div className='flex justify-between gap-[141px] mb-[68px]'>
                                         <div className='text-base leading-8'>
                                             <p><span className='font-semibold'>Native Name: </span> {native.common}</p>
+
                                             <p><span className='font-semibold'>Population: </span> {info.population.toLocaleString()}</p>
                                             <p><span className='font-semibold'>Region: </span> {info.region}</p>
                                             <p><span className='font-semibold'>Sub Region: </span> {info.subregion}</p>
@@ -86,24 +108,17 @@ export default async function Country() {
                                         <div className='leading-8'>
                                             <p><span className='font-semibold'>Top Level Domain: </span> {info.tld}</p>
                                             <p><span className='font-semibold'>Currencies: </span> {curr.join(', ')}</p>
+
+
                                             <p><span className='font-semibold'>Languages: </span> {language.join(', ')}</p>
+
 
                                         </div>
                                     </div>
                                     <div>
                                         <span className='font-semibold'>Border Countries: </span>
                                         <div>
-                                            {
-                                                border.map((bord: string, index: number) => {
-
-
-                                                    console.log(bord);
-
-                                                    return (
-                                                        <p key={index}>test</p>
-                                                    )
-                                                })
-                                            }
+                                            {/* <Borders borders={info.borders} /> */}
                                         </div>
                                     </div>
                                 </div>
