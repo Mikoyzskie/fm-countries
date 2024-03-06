@@ -13,27 +13,6 @@ interface ICurrency {
     symbol: string
 }
 
-// interface IInfo{
-//     population:string,
-//     region:string,
-//     subregion:string,
-//     currencies:{
-//         name:string
-//     },
-//     tld:string,
-//     name:{
-//         nativeName:string
-//     }
-//     flags:{
-//         svg:string,
-//         alt:string,
-//     }
-//     languages: string[],
-//     capital:string,
-//     borders:string[]
-// }
-
-
 export default async function Country() {
     const test = "belgium"
     const data = await getCountry(test)
@@ -65,25 +44,10 @@ export default async function Country() {
             <div>
                 {
                     data.map((info: any, index: number) => {
-                        const keys = Object.values(info.name.nativeName)
-                        const last = keys.length - 1
-                        const native = keys[last]
-
+                        const keys: INative[] = Object.values(info.name.nativeName)
+                        const native: INative = keys[keys.length - 1]
                         const currencies: ICurrency[] = Object.values(info.currencies)
-                        const curr = currencies.map((current: ICurrency) => {
-                            return current.name
-                        })
-
                         const language = Object.values(info.languages)
-                        // const border = await Promise.all(info.borders.map(async (border: string, index: number) => {
-
-                        //     const bord = await getFromCode(border)
-                        //     const [test] = bord
-                        //     return test
-                        // }))
-
-                        // console.log(border);
-
 
                         return (
                             <div key={index} className='flex gap-[120px] items-center'>
@@ -107,7 +71,9 @@ export default async function Country() {
                                         </div>
                                         <div className='leading-8'>
                                             <p><span className='font-semibold'>Top Level Domain: </span> {info.tld}</p>
-                                            <p><span className='font-semibold'>Currencies: </span> {curr.join(', ')}</p>
+                                            <p><span className='font-semibold'>Currencies: </span> {
+                                                currencies[0].name
+                                            }</p>
 
 
                                             <p><span className='font-semibold'>Languages: </span> {language.join(', ')}</p>
@@ -115,10 +81,10 @@ export default async function Country() {
 
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className='flex gap-[15px]'>
                                         <span className='font-semibold'>Border Countries: </span>
                                         <div>
-                                            {/* <Borders borders={info.borders} /> */}
+                                            <Borders country={info.borders} />
                                         </div>
                                     </div>
                                 </div>
