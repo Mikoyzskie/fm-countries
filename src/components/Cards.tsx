@@ -52,7 +52,7 @@ const Cards = async ({ region, country }: { region?: string | string[] | undefin
 
 
     return (
-        <div className="maxWidth grid grid-cols-4 gap-[75px]">
+        <div className="maxWidth grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[75px]">
             {!region && !country &&
 
                 countries?.map((country, index) => (
