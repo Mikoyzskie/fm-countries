@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { getCountry, getFromCode } from '@/lib/data'
 import Link from 'next/link'
 import Borders from '@/components/Borders'
+import Back from '@/components/Back'
 
 interface INative {
     official: string,
@@ -13,35 +14,18 @@ interface ICurrency {
     symbol: string
 }
 
-export default async function Country() {
-    const test = "belgium"
-    const data = await getCountry(test)
+export default async function Country({ params }: { params: { country: string } }) {
+
+    const data = await getCountry(params.country)
 
     // console.log(data);
 
     return (
-        <div className='mt-[90px] maxWidth'>
-            <button className='flex items-center gap-[10px] mb-[90px]'>
-                <svg
-                    width={20}
-                    height={20}
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g id="call-made">
-                        <path
-                            id="Shape"
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M6.46447 4.10744L7.64298 5.28596L3.75389 9.17504L18.6031 9.17504L18.6031 10.825L3.75389 10.825L7.64298 14.714L6.46447 15.8926L0.57191 10L6.46447 4.10744Z"
-                            fill="#111517"
-                        />
-                    </g>
-                </svg>
-                Back
-            </button>
-            <div>
+        <div className='mt-[40px] lg:mt-[90px] maxWidth pb-[60px]'>
+            <div className='px-[28px] lg:px-0'>
+                <Back />
+            </div>
+            <div className='maxWidth'>
                 {
                     data.map((info: any, index: number) => {
                         const keys: INative[] = Object.values(info.name.nativeName)
@@ -50,18 +34,18 @@ export default async function Country() {
                         const language = Object.values(info.languages)
 
                         return (
-                            <div key={index} className='flex gap-[120px] items-center'>
+                            <div key={index} className='flex gap-[44px] lg:gap-[120px] items-center flex-col lg:flex-row px-[28px] lg:px-0'>
                                 <Image
                                     src={info.flags.svg}
                                     alt={info.flags.alt}
                                     width={560}
                                     height={401}
-                                    className='object-cover rounded-[10px]'
+                                    className='object-cover rounded-[10px] shadow-md'
                                 />
-                                <div>
-                                    <h1 className='text-[32px] font-extrabold mb-[23px]'>{info.name.common}</h1>
-                                    <div className='flex justify-between gap-[141px] mb-[68px]'>
-                                        <div className='text-base leading-8'>
+                                <div className='w-full'>
+                                    <h1 className='text-[22px] md:text-[32px] font-extrabold mb-[23px]'>{info.name.common}</h1>
+                                    <div className='flex flex-col md:flex-row justify-between mb-[34px] lg:mb-[68px] gap-8'>
+                                        <div className='text-sm md:text-base leading-8 flex flex-col gap-1 md:gap-2'>
                                             <p><span className='font-semibold'>Native Name: </span> {native.common}</p>
 
                                             <p><span className='font-semibold'>Population: </span> {info.population.toLocaleString()}</p>
@@ -69,19 +53,17 @@ export default async function Country() {
                                             <p><span className='font-semibold'>Sub Region: </span> {info.subregion}</p>
                                             <p><span className='font-semibold'>Capital: </span> {info.capital}</p>
                                         </div>
-                                        <div className='leading-8'>
+                                        <div className='leading-8 text-sm md:text-base flex flex-col gap-1 md:gap-2'>
                                             <p><span className='font-semibold'>Top Level Domain: </span> {info.tld}</p>
                                             <p><span className='font-semibold'>Currencies: </span> {
                                                 currencies[0].name
                                             }</p>
 
-
                                             <p><span className='font-semibold'>Languages: </span> {language.join(', ')}</p>
-
 
                                         </div>
                                     </div>
-                                    <div className='flex gap-[15px]'>
+                                    <div className='flex flex-col md:flex-row gap-[15px] text-sm md:text-base'>
                                         <span className='font-semibold'>Border Countries: </span>
                                         <div>
                                             <Borders country={info.borders} />

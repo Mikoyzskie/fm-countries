@@ -18,11 +18,13 @@ const Cards = async ({ region, country }: { region?: string | string[] | undefin
             const countriesData = await Promise.all(
                 landing.map(async (name: string) => {
                     const country = await getCountry(name);
+
+
                     const [card] = country;
                     return {
                         svg: card.flags.png,
                         alt: card.flags.alt,
-                        name: card.name.common,
+                        name: card.name.official,
                         population: card.population.toLocaleString(),
                         region: card.region,
                         capital: card.capital.join(", "),
@@ -52,7 +54,7 @@ const Cards = async ({ region, country }: { region?: string | string[] | undefin
 
 
     return (
-        <div className="maxWidth grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[75px]">
+        <div className="maxWidth grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:gap-[75px] sm:px-4 px-[56px] lg:px-0">
             {!region && !country &&
 
                 countries?.map((country, index) => (
