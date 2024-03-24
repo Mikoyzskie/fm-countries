@@ -1,3 +1,4 @@
+import { Providers } from "@/app/provider"
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
@@ -16,11 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
 
-      <body className={nunito.className}>
-        <Header />
-        {children}
+      <body className={`${nunito.className}`}>
+        <Providers>
+          <div className="dark:text-white text-black dark:bg-[#202C36] bg-white  min-h-screen h-full">
+            <Header />
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

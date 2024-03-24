@@ -15,7 +15,7 @@ interface CountryCard {
 export default function CountryCard({ svg, alt, name, population, region, capital }: CountryCard) {
 
     return (
-        <Link href={`/${name.toLocaleLowerCase()}`} className='rounded-[5px] shadow-md overflow-hidden'>
+        <Link href={`/${name.toLocaleLowerCase()}`} className='rounded-[5px] shadow-md overflow-hidden h-auto'>
             <Image
                 src={svg}
                 alt={alt}
@@ -23,7 +23,7 @@ export default function CountryCard({ svg, alt, name, population, region, capita
                 height={160}
                 className='max-h-[160px] w-full h-full object-cover'
             />
-            <div className='p-6 pb-[46px] flex flex-col gap-4 h-fit'>
+            <div className='p-6 pb-[46px] flex flex-col gap-4 h-full dark:bg-[#2B3844]'>
                 <h2 className='font-extrabold text-lg leading-[26px]'>{name}</h2>
                 <div className='flex flex-col gap-2 text-sm'>
                     <p className='leading-4'><span className='font-semibold'>Population:</span> {population}</p>

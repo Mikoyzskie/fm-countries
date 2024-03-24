@@ -21,11 +21,11 @@ export default async function Country({ params }: { params: { country: string } 
     // console.log(data);
 
     return (
-        <div className='mt-[40px] lg:mt-[90px] maxWidth pb-[60px]'>
+        <div className='mt-[40px] lg:mt-[90px] maxWidth pb-[60px] h-full'>
             <div className='px-[28px] lg:px-0'>
                 <Back />
             </div>
-            <div className='maxWidth'>
+            <div className='maxWidth h-full'>
                 {
                     data.map((info: any, index: number) => {
                         const keys: INative[] = Object.values(info.name.nativeName)
